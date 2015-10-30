@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.example.myprojectwithwiremock"
+        minSdkVersion 8
+        targetSdkVersion 18
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:20.0.0'
+    compile 'com.google.guava:guava:18.0'
+
+    compile files('libs/httpclientandroidlib-4.3.0.jar')
+    compile files('libs/jackson-annotations-2.5.0.jar')
+    compile files('libs/jackson-core-2.5.0.jar')
+    compile files('libs/jackson-databind-2.5.0.jar')
+    compile files('libs/json-path-0.9.0.jar')
+    compile files('libs/json-smart-1.1.1.jar')
+    compile files('libs/jsonassert-1.1.1.jar')
+    compile files('libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar')
+    compile files('libs/log4j-1.2.17.jar')
+    compile files('libs/org.mortbay.jetty.jar')
+    compile files('libs/wiremock-android-1.50.jar')
+    compile files('libs/xmlunit-1.6.jar')
+
+    androidTestCompile 'junit:junit:4.12'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2'
+}
+
+configurations {
+    all*.exclude group: 'commons-logging', module: 'commons-logging'
+    all*.exclude group: 'com.android.support', module: 'support-annotations'
+}
