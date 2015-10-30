@@ -3,8 +3,6 @@ package com.example.myprojectwithwiremock;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 
@@ -15,8 +13,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
@@ -24,7 +20,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
@@ -32,6 +27,10 @@ import static org.junit.Assert.assertThat;
 public class MainActivityTest extends
         ActivityInstrumentationTestCase2<MainActivity>
 {
+
+    private static final String WIRE_MOCK_IP = "192.168.0.100";
+    private static final int WIREM_MOCK_PORT = 8080;
+
     public MainActivityTest()
     {
         super(MainActivity.class);
@@ -61,7 +60,7 @@ public class MainActivityTest extends
 
     private static void stubServer() throws Exception
     {
-        WireMock.configureFor("192.168.0.100", 8080);
+        WireMock.configureFor(WIRE_MOCK_IP, WIREM_MOCK_PORT);
         stubFor(get(urlEqualTo("/seam/resource/rest/recipe/list"))
                 //.withHeader("Accept", equalTo("text/xml"))
                 .willReturn(aResponse()
@@ -76,18 +75,9 @@ public class MainActivityTest extends
     public void testSendRequestEspresso() throws Exception
     {
         stubServer();
-        TextView returnStringLbl = (TextView) this.getActivity().findViewById(R.id.returnStringLbl);
-
         onView(withId(R.id.returnStringLbl)).check(matches(withText("Nothing yet returned")));
-
-        Button sendRequestBtn = (Button) this.getActivity().findViewById(R.id.sendRequest);
         onView(withId(R.id.sendRequest)).perform(click());
         onView(withId(R.id.returnStringLbl)).check(matches(not(withText("Nothing yet returned"))));
         onView(withId(R.id.returnStringLbl)).check(matches(withText("<response>This is mock response</response>")));
-    }
-
-    protected void checkToast(String s)
-    {
-        onView(withText(s)).inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 }
