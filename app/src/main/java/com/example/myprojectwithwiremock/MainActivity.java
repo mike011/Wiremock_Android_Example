@@ -12,25 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.tomakehurst.wiremock.client.WireMock;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-
 public class MainActivity extends Activity
 {
-
     private static String TAG = "MainActivity";
-    TextView returnTxtView;
-
-    // Values for email and password at the time of the login attempt.
+    private TextView returnTxtView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,12 +41,10 @@ public class MainActivity extends Activity
                 Log.d(TAG, "Inside sendRequst Button");
                 SendRequestTask sendRequestTask = new SendRequestTask();
                 sendRequestTask.execute((Void) null);
-
-
             } // end of onClick
         });
 
-    } // end of OnCreate
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -88,13 +76,9 @@ public class MainActivity extends Activity
         {
             // TODO: attempt authentication against a network service.
 
-            startServer();
-
             boolean status = false;
             try
             {
-
-
                 Log.d(TAG, "Inside DoBackground");
                 String host = "192.168.0.100";
                 String path = "/seam/resource/rest/recipe/list";
@@ -136,12 +120,8 @@ public class MainActivity extends Activity
         @Override
         protected void onPostExecute(final Boolean success)
         {
-
-
             if (success)
             {
-                //finish();
-
                 returnTxtView.setText(returnText);
                 Toast.makeText(getApplicationContext(), "Request Successful", Toast.LENGTH_LONG).show();
             }
@@ -154,39 +134,8 @@ public class MainActivity extends Activity
         @Override
         protected void onCancelled()
         {
-
         }
     }
-
-
-    private static void startServer()
-    {
-        //final WireMockRule wireMockRule = new WireMockRule(8888);
-        //WireMock wire = new WireMock("10.0.2.2", 8888) ;
-        try
-        {
-            //	WireMockConfiguration wireMockConfig = new WireMockConfiguration() ;
-            //	WireMockServer wireMockServer = new WireMockServer(wireMockConfig.port(8888)); //No-args constructor will start on port 8080, no HTTPS
-            //	wireMockServer.start();
-            WireMock.configureFor("192.168.0.100", 8080);
-            stubFor(get(urlEqualTo("/seam/resource/rest/recipe/list"))
-                    //.withHeader("Accept", equalTo("text/xml"))
-                    .willReturn(aResponse()
-                            .withStatus(200)
-                            .withHeader("Content-Type", "text/xml")
-                            .withBody("<response>This is mock response</response>")));
-
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-
-    }
-
-
 }
 
 
