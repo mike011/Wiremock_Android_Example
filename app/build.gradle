@@ -28,28 +28,25 @@ android {
 }
 
 dependencies {
-    androidTestCompile 'com.android.support:support-v4:20.0.0'
-    androidTestCompile 'com.google.guava:guava:18.0'
-
-    androidTestCompile files('libs/httpclientandroidlib-4.3.0.jar')
-    androidTestCompile files('libs/jackson-annotations-2.5.0.jar')
-    androidTestCompile files('libs/jackson-core-2.5.0.jar')
-    androidTestCompile files('libs/jackson-databind-2.5.0.jar')
-    androidTestCompile files('libs/json-path-0.9.0.jar')
-    androidTestCompile files('libs/json-smart-1.1.1.jar')
-    androidTestCompile files('libs/jsonassert-1.1.1.jar')
     androidTestCompile files('libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar')
-    androidTestCompile files('libs/log4j-1.2.17.jar')
-    androidTestCompile files('libs/org.mortbay.jetty.jar')
     androidTestCompile files('libs/wiremock-android-1.50.jar')
-    androidTestCompile files('libs/xmlunit-1.6.jar')
-
-    androidTestCompile 'junit:junit:4.12'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2'
+    androidTestCompile 'com.google.guava:guava:18.0'
+    androidTestCompile 'com.belladati:httpclientandroidlib:4.3.0'
+    androidTestCompile 'com.fasterxml.jackson.core:jackson-databind:2.5.0'
+    androidTestCompile 'com.jayway.jsonpath:json-path:0.9.0'
+    androidTestCompile('org.skyscreamer:jsonassert:1.1.1') {
+        exclude group: 'org.json', module: 'json'
+        exclude group: 'commons-collections', module: 'commons-collections'
+    }
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'log4j:log4j:1.2.17'
+    androidTestCompile 'org.mortbay.jetty:jetty:6.1.18'
+    androidTestCompile 'xmlunit:xmlunit:1.6'
 }
 
 configurations {

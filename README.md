@@ -8,3 +8,4 @@ A working example of wiremock working with android.
 
 To Do
 - Be able to assign the wire mock ip and port when running the tests. Currently the values are hardcoded.
+- Better clean up libraries by using the gradle reference for wiremock. Currently this blows up when running tests.

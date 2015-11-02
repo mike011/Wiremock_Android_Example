@@ -9,6 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mortbay.jetty.HttpStatus;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -58,23 +59,20 @@ public class MainActivityTest extends
         onView(withId(R.id.helloWorld)).check(matches(withText(R.string.hello_world)));
     }
 
-    private static void stubServer() throws Exception
+    private static void stubServerCall() throws Exception
     {
         WireMock.configureFor(WIRE_MOCK_IP, WIRE_MOCK_PORT);
         stubFor(get(urlEqualTo("/seam/resource/rest/recipe/list"))
-                //.withHeader("Accept", equalTo("text/xml"))
                 .willReturn(aResponse()
-                        .withStatus(200)
+                        .withStatus(HttpStatus.ORDINAL_200_OK)
                         .withHeader("Content-Type", "text/xml")
                         .withBody("<response>This is mock response</response>")));
-
-
     }
 
     @Test
     public void testSendRequestEspresso() throws Exception
     {
-        stubServer();
+        stubServerCall();
         onView(withId(R.id.returnStringLbl)).check(matches(withText("Nothing yet returned")));
         onView(withId(R.id.sendRequest)).perform(click());
         onView(withId(R.id.returnStringLbl)).check(matches(not(withText("Nothing yet returned"))));
