@@ -12,10 +12,17 @@ android {
     }
 
     buildTypes {
+        def IP = InetAddress.localHost.hostAddress
+        def IPS = "\"" + IP + "\""
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+        debug {
+            buildConfigField "String", "WIRE_MOCK_IP", IPS
+            buildConfigField "Integer", "WIRE_MOCK_PORT", "8080"
+        }
+
     }
 
     packagingOptions {

@@ -29,9 +29,6 @@ public class MainActivityTest extends
         ActivityInstrumentationTestCase2<MainActivity>
 {
 
-    private static final String WIRE_MOCK_IP = "192.168.0.100";
-    private static final int WIRE_MOCK_PORT = 8080;
-
     public MainActivityTest()
     {
         super(MainActivity.class);
@@ -61,7 +58,7 @@ public class MainActivityTest extends
 
     private static void stubServerCall() throws Exception
     {
-        WireMock.configureFor(WIRE_MOCK_IP, WIRE_MOCK_PORT);
+        WireMock.configureFor(BuildConfig.WIRE_MOCK_IP, BuildConfig.WIRE_MOCK_PORT);
         stubFor(get(urlEqualTo("/seam/resource/rest/recipe/list"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.ORDINAL_200_OK)
