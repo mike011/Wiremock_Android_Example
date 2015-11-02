@@ -29,7 +29,7 @@ public class MainActivityTest extends
 {
 
     private static final String WIRE_MOCK_IP = "192.168.0.100";
-    private static final int WIREM_MOCK_PORT = 8080;
+    private static final int WIRE_MOCK_PORT = 8080;
 
     public MainActivityTest()
     {
@@ -60,7 +60,7 @@ public class MainActivityTest extends
 
     private static void stubServer() throws Exception
     {
-        WireMock.configureFor(WIRE_MOCK_IP, WIREM_MOCK_PORT);
+        WireMock.configureFor(WIRE_MOCK_IP, WIRE_MOCK_PORT);
         stubFor(get(urlEqualTo("/seam/resource/rest/recipe/list"))
                 //.withHeader("Accept", equalTo("text/xml"))
                 .willReturn(aResponse()
