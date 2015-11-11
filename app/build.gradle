@@ -19,8 +19,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
         debug {
-            buildConfigField "String", "WIRE_MOCK_IP", IPS
-            buildConfigField "Integer", "WIRE_MOCK_PORT", "8080"
+            buildConfigField "String", "IP", IPS
+            buildConfigField "Integer", "PORT", "8080"
         }
 
     }

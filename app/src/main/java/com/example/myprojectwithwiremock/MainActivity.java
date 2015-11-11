@@ -80,10 +80,8 @@ public class MainActivity extends Activity
             try
             {
                 Log.d(TAG, "Inside DoBackground");
-                String host = "192.168.0.100";
                 String path = "/seam/resource/rest/recipe/list";
-                int port = 8080;
-                URL url = new URL("http", host, port, path);
+                URL url = new URL("http", BuildConfig.IP, BuildConfig.PORT, path);
                 URLConnection conn = url.openConnection();
                 conn.setDoInput(true);
                 conn.setAllowUserInteraction(true);

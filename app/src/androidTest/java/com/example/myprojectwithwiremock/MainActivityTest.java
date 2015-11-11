@@ -58,7 +58,7 @@ public class MainActivityTest extends
 
     private static void stubServerCall() throws Exception
     {
-        WireMock.configureFor(BuildConfig.WIRE_MOCK_IP, BuildConfig.WIRE_MOCK_PORT);
+        WireMock.configureFor(BuildConfig.IP, BuildConfig.PORT);
         stubFor(get(urlEqualTo("/seam/resource/rest/recipe/list"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.ORDINAL_200_OK)
