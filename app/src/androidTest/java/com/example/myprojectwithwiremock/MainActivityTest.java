@@ -20,9 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest extends
@@ -41,19 +39,6 @@ public class MainActivityTest extends
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         getActivity();
-    }
-
-    @Test
-    public void testStartActivity() throws Exception
-    {
-        String hello = this.getActivity().getString(R.string.hello_world);
-        assertThat(hello, equalTo("Hello world!"));
-    }
-
-    @Test
-    public void testStartActivityEspresso() throws Exception
-    {
-        onView(withId(R.id.helloWorld)).check(matches(withText(R.string.hello_world)));
     }
 
     private static void stubServerCall() throws Exception
